@@ -69,3 +69,19 @@ func GetMap(id string) UniqueMap {
 
 	return apiResponse
 }
+
+func GetWeapons() Weapons {
+	fmt.Println("Récupération des armes")
+	resp, err := http.Get("https://valorant-api.com/v1/weapons")
+	if err != nil {
+		log.Fatalf("Error fetching data: %v", err)
+	}
+	defer resp.Body.Close()
+
+	var apiResponse Weapons
+	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
+		log.Fatalf("Error decoding JSON: %v", err)
+	}
+
+	return apiResponse
+}

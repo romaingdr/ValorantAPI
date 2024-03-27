@@ -23,6 +23,10 @@ func Initserv() {
 	http.HandleFunc("/maps", controller.MapsPage)
 	http.HandleFunc("/map", controller.MapPage)
 
+	// Weapons
+	http.HandleFunc("/weapons", controller.WeaponsPage)
+	http.HandleFunc("/weapon", controller.WeaponPage)
+
 	// Démarrage du serveur
 	log.Println("Serveur lancé")
 	fmt.Println("http://localhost:8080/accueil")

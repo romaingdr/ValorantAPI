@@ -1,3 +1,5 @@
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
 @font-face {
     font-family: 'ValoFont';
     src: url('../fonts/Valorant-Font.ttf') format('opentype');
@@ -28,6 +30,12 @@
 .square-link svg {
     margin-top: 20px; /* Espacement entre le texte et le SVG */
 }
+
+.square-link img {
+    width: 70%;
+    margin-top: 20px; /* Espacement entre le texte et le SVG */
+}
+
 .square-link:last-child {
     margin-right: 0; /* Pour supprimer l'espacement à droite du dernier élément de chaque ligne */
 }
@@ -78,14 +86,6 @@ p {
     text-align: center;
 }
 
-.favorites {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(60deg, rgba(255, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 100%);
-    margin: 10px;
-    display: inline-block;
-    text-decoration: none;
-}
 .waves {
     position:relative;
     width: 100%;
@@ -147,4 +147,75 @@ p {
     h1 {
         font-size:24px;
     }
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+.image {
+    width: 50%;
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+.text {
+    flex: 1;
+}
+
+.skin-container {
+    text-align: center; /* Aligner le contenu au centre */
+}
+
+.spots {
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    width: 70%;
+    margin-bottom: 20px;
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+.spots img {
+    width: 20%;
+    height: auto;
+    margin: 10px;
+}
+
+h2 {
+    text-align: center;
+    font-family: Lato, sans-serif;
+}
+.ability {
+    margin-bottom: 10px; /* Espacement entre chaque compétence */
+    background-color: #f8d7da; /* Couleur de fond rouge clair */
+    background-image: linear-gradient(to bottom right, #f8d7da, #e69c9b); /* Dégradé rouge clair */
+    padding: 10px; /* Espacement interne pour l'arrière-plan */
+    border-radius: 5px; /* Ajoute des coins arrondis */
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-left: 10px; /* Espacement entre l'icône et le texte */
+    width: 50px; /* Largeur de l'icône */
+    height: 50px; /* Hauteur de l'icône */
+}
+
+.ability-details {
+    flex: 1; /* Le texte prend tout l'espace disponible */
+    margin-left: 10px; /* Espacement entre l'icône et le texte */
+}
+
+.ability-name {
+    font-weight: bold; /* Titre de la compétence */
+    margin-bottom: 5px; /* Espacement entre le titre et la description */
 }

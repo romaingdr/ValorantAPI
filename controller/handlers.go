@@ -69,3 +69,35 @@ func MapPage(w http.ResponseWriter, r *http.Request) {
 
 	templates.Temp.ExecuteTemplate(w, "map", mapDatas.Datas)
 }
+
+func WeaponsPage(w http.ResponseWriter, r *http.Request) {
+
+	weapons := backend.GetWeapons()
+
+	var groupedWeapons [][]backend.Item
+	for i := 0; i < len(weapons.Data); i += 4 {
+		end := i + 4
+		if end > len(weapons.Data) {
+			end = len(weapons.Data)
+		}
+		groupedWeapons = append(groupedWeapons, weapons.Data[i:end])
+	}
+
+	templates.Temp.ExecuteTemplate(w, "weapons", groupedWeapons)
+}
+
+func WeaponPage(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+
+	var weapons = backend.GetWeapons()
+
+	var weaponSelected []backend.Item
+	for _, weapon := range weapons.Data {
+		if weapon.DisplayName == name {
+			weaponSelected = append(weaponSelected, weapon)
+			break
+		}
+	}
+
+	templates.Temp.ExecuteTemplate(w, "weapon", weaponSelected[0])
+}
