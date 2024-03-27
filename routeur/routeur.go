@@ -33,6 +33,9 @@ func Initserv() {
 	// GamesMods
 	http.HandleFunc("/gamemods", controller.GamemodsPage)
 
+	// Erreur 404
+	http.HandleFunc("/", controller.ErrorPage)
+
 	// Démarrage du serveur
 	log.Println("Serveur lancé")
 	fmt.Println("http://localhost:8081/accueil")

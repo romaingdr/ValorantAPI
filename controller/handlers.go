@@ -124,3 +124,7 @@ func SkinPage(w http.ResponseWriter, r *http.Request) {
 
 	templates.Temp.ExecuteTemplate(w, "skin", skin)
 }
+
+func ErrorPage(w http.ResponseWriter, r *http.Request) {
+	templates.Temp.ExecuteTemplate(w, "error", nil)
+}
