@@ -27,6 +27,9 @@ func Initserv() {
 	http.HandleFunc("/weapons", controller.WeaponsPage)
 	http.HandleFunc("/weapon", controller.WeaponPage)
 
+	// Skins
+	http.HandleFunc("/skin", controller.SkinPage)
+
 	// GamesMods
 	http.HandleFunc("/gamemods", controller.GamemodsPage)
 

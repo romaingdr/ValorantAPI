@@ -1,9 +1,9 @@
-{{define "weapon"}}
+{{define "skin"}}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Arme</title>
-    <link rel="stylesheet" href="/static/css/weapon.css">
+    <title>{{.Data.DisplayName}}</title>
+    <link rel="stylesheet" href="/static/css/skin.css">
 </head>
 <body>
 <div class="header">
@@ -31,35 +31,24 @@
 
 <div class="container">
     <div class="image">
-        <img src="{{.DisplayIcon}}" alt="{{.DisplayName}}">
+        <img src="{{.Data.DisplayIcon}}" alt="{{.Data.DisplayName}}">
     </div>
     <div class="text">
-        <h1>{{.DisplayName}}</h1>
-        <p>Prix : {{.ShopData.Cost}}</p>
-        <p>Cadence de tir : {{.WeaponStats.FireRate}}</p>
-        <p>Temps de rechargement : {{.WeaponStats.ReloadTimeSeconds}}</p>
-        <p>Capacité du chargeur : {{.WeaponStats.MagazineSize}}</p>
-        <div class="damages">
-            {{range .WeaponStats.DamageRanges}}
-            <p>Portée : {{.RangeStartMeters }} - {{.RangeEndMeters }}</p>
-            <p>Dégats à la tête : {{.HeadDamage}}</p>
-            <p>Dégats au corps : {{.BodyDamage}}</p>
-            <p>Dégats aux jambes : {{.LegDamage}}</p>
-            {{end}}
-        </div>
+        <h1>{{.Data.DisplayName}}</h1>
     </div>
 </div>
 
-<h2>Skins</h2>
+<h2>Variantes</h2>
 
 <div class="skin-container">
-{{range .Skins}}
-    <a href="/skin?id={{.UUID}}" class="spots">
-        <img src="{{.DisplayIcon}}" alt="{{.DisplayName}}">
+    {{range .Data.Chromas}}
+    <div class="spots">
         <p>{{.DisplayName}}</p>
-    </a>
-{{end}}
+        <img src="{{.FullRender}}" alt="Chroma Full Render">
+    </div>
+    {{end}}
 </div>
+
 </body>
 </html>
 {{end}}

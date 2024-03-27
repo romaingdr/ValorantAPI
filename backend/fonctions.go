@@ -101,3 +101,31 @@ func GetGameMods() GameModeData {
 
 	return apiResponse
 }
+
+func GetSkin(id string) WeaponSkinData {
+	fmt.Println("Récupération du skins")
+
+	url := "https://valorant-api.com/v1/weapons/skins/" + id
+
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Fatalf("Error fetching data: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Received non-200 status code: %d", resp.StatusCode)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body: %v", err)
+	}
+
+	var apiResponse WeaponSkinData
+	if err := json.Unmarshal(body, &apiResponse); err != nil {
+		log.Fatalf("Error decoding JSON: %v", err)
+	}
+
+	return apiResponse
+}

@@ -116,3 +116,11 @@ func GamemodsPage(w http.ResponseWriter, r *http.Request) {
 
 	templates.Temp.ExecuteTemplate(w, "gamemods", groupedGameModes)
 }
+
+func SkinPage(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+
+	skin := backend.GetSkin(id)
+
+	templates.Temp.ExecuteTemplate(w, "skin", skin)
+}
