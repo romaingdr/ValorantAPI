@@ -1,0 +1,5 @@
+- Tri sur persos
+- Pagination skins
+- Favoris (tout)
+- Voicelines persos
+- Recherche

@@ -85,3 +85,19 @@ func GetWeapons() Weapons {
 
 	return apiResponse
 }
+
+func GetGameMods() GameModeData {
+	fmt.Println("Récupération des modes de jeu")
+	resp, err := http.Get("https://valorant-api.com/v1/gamemodes")
+	if err != nil {
+		log.Fatalf("Error fetching data: %v", err)
+	}
+	defer resp.Body.Close()
+
+	var apiResponse GameModeData
+	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
+		log.Fatalf("Error decoding JSON: %v", err)
+	}
+
+	return apiResponse
+}

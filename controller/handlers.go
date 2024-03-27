@@ -101,3 +101,18 @@ func WeaponPage(w http.ResponseWriter, r *http.Request) {
 
 	templates.Temp.ExecuteTemplate(w, "weapon", weaponSelected[0])
 }
+
+func GamemodsPage(w http.ResponseWriter, r *http.Request) {
+	gamesMods := backend.GetGameMods()
+
+	var groupedGameModes [][]backend.GameMode
+	for i := 0; i < len(gamesMods.Data); i += 4 {
+		end := i + 4
+		if end > len(gamesMods.Data) {
+			end = len(gamesMods.Data)
+		}
+		groupedGameModes = append(groupedGameModes, gamesMods.Data[i:end])
+	}
+
+	templates.Temp.ExecuteTemplate(w, "gamemods", groupedGameModes)
+}

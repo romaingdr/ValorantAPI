@@ -27,9 +27,12 @@ func Initserv() {
 	http.HandleFunc("/weapons", controller.WeaponsPage)
 	http.HandleFunc("/weapon", controller.WeaponPage)
 
+	// GamesMods
+	http.HandleFunc("/gamemods", controller.GamemodsPage)
+
 	// Démarrage du serveur
 	log.Println("Serveur lancé")
-	fmt.Println("http://localhost:8080/accueil")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("http://localhost:8081/accueil")
+	http.ListenAndServe(":8081", nil)
 	log.Fatal()
 }
