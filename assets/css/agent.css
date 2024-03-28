@@ -62,6 +62,16 @@ p {
     background: linear-gradient(60deg, rgba(255, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 100%);
     color:white;
 }
+
+.name {
+    gap: 3rem;
+    align-items: center;
+    display: flex;
+}
+
+.name a {
+    margin-bottom: 30px;
+}
 .logo {
     width:50px;
     fill:white;

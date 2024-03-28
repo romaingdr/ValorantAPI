@@ -128,3 +128,43 @@ func SkinPage(w http.ResponseWriter, r *http.Request) {
 func ErrorPage(w http.ResponseWriter, r *http.Request) {
 	templates.Temp.ExecuteTemplate(w, "error", nil)
 }
+
+func AddFavPage(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("key")
+	t := r.URL.Query().Get("type")
+
+	var imageURL string
+	var id string
+
+	if t == "agent" {
+		imageURL = r.URL.Query().Get("img")
+		err := backend.AjouterElement(t, name, imageURL)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else {
+		id = r.URL.Query().Get("id")
+		err := backend.AjouterElement(t, name, id)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	if t == "agent" {
+		http.Redirect(w, r, "/agent?name="+name, http.StatusSeeOther)
+	} else if t == "map" {
+		http.Redirect(w, r, "/map?id="+id, http.StatusSeeOther)
+	}
+}
+
+func FavoritesPage(w http.ResponseWriter, r *http.Request) {
+	data, err := backend.GetFavorites()
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(w, r, "/error", http.StatusSeeOther)
+		return
+	}
+
+	fmt.Println(data)
+	templates.Temp.ExecuteTemplate(w, "favorites", data)
+}

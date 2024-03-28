@@ -33,6 +33,10 @@ func Initserv() {
 	// GamesMods
 	http.HandleFunc("/gamemods", controller.GamemodsPage)
 
+	// Favoris
+	http.HandleFunc("/addfav", controller.AddFavPage)
+	http.HandleFunc("/favorites", controller.FavoritesPage)
+
 	// Erreur 404
 	http.HandleFunc("/", controller.ErrorPage)
 

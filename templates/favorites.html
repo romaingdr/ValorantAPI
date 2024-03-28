@@ -1,11 +1,12 @@
-{{define "map"}}
+{{define "favorites"}}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{.DisplayName}}</title>
-    <link rel="stylesheet" href="/static/css/map.css">
+    <title>Favoris</title>
+    <link rel="stylesheet" href="/static/css/favorites.css">
 </head>
 <body>
+
 <div class="header">
 
     <div class="inner-header flex">
@@ -29,32 +30,36 @@
 
 </div>
 
-<div class="container">
-    <div class="image">
-        <img src="{{.DisplayIcon}}" alt="{{.DisplayName}}">
-    </div>
-    <div class="text">
-        <div class="name">
-            <h1>{{.DisplayName}}</h1>
-            <a href="/addfav?type=map&key={{.DisplayName}}&id={{.UUID}}"><img width="50" height="50" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1"/></a>
-        </div>
-        <p>{{.NarrativeDescription}}</p>
-        <p><strong>Coordonnées :</strong> {{.Coordinates}}</p>
-        <p><strong>Description Tactique :</strong> {{.TacticalDescription}}</p>
-    </div>
+<h3>Favoris</h3>
+
+<h2>Agents</h2>
+<div class="favorites-container">
+    {{if .Agents}}
+    {{range .Agents}}
+    <a href="/agent?name={{.Nom}}" class="square-link">
+        <span class="text">{{.Nom}}</span>
+        <img src="{{.ImageURL}}" alt="Image de l'agent">
+    </a>
+    {{end}}
+    {{else}}
+    <p>Vous n'avez pas d'agent favori.</p>
+    {{end}}
 </div>
 
-<h2>Points d'intérêt</h2>
-
-<div class="spots">
-    <ul>
-        {{range .Callouts}}
-        <div class="spot">
-            <strong > {{.RegionName}} </strong>({{.SuperRegionName}}) | X : {{.Location.X}}, Y : {{.Location.Y}}
-        </div>
-        {{end}}
-    </ul>
+<h2>Maps</h2>
+<div class="favorites-container">
+    {{if .Maps}}
+    {{range .Maps}}
+    <a href="/map?id={{.Id}}" class="square-link">
+        <span class="text">{{.Nom}}</span>
+        <img id="img-map" src="https://media.valorant-api.com/maps/{{.Id}}/splash.png" alt="Map Image">
+    </a>
+    {{end}}
+    {{else}}
+    <p>Vous n'avez pas de map favorite.</p>
+    {{end}}
 </div>
+
 </body>
 </html>
 {{end}}

@@ -35,7 +35,10 @@
         <img src="{{.FullPortrait}}" alt="{{.DisplayName}}">
     </div>
     <div class="text">
-        <h1>{{.DisplayName}}</h1>
+        <div class="name">
+            <h1>{{.DisplayName}}</h1>
+            <a href="/addfav?type=agent&key={{.DisplayName}}&img={{.DisplayIcon}}"><img width="50" height="50" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1"/></a>
+        </div>
         <p>{{.Description}}</p>
         <p>Nom de développement : {{.DeveloperName}}</p>
         <p>Role : {{.Role.DisplayName}}</p>
