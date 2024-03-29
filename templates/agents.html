@@ -7,11 +7,9 @@
 </head>
 <body>
 <div class="header">
-
     <div class="inner-header flex">
         <h1>Valorant API</h1>
     </div>
-
     <div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -26,11 +24,20 @@
             </g>
         </svg>
     </div>
-
 </div>
 
 <div class="content flex">
-    {{range $group := .}}
+    <div class="filters">
+        <select id="filter" name="filter">
+            <option value="all" {{if eq .Filter "all"}}selected{{end}}>Tous</option>
+            <option value="Initiateur" {{if eq .Filter "Initiateur"}}selected{{end}}>Initiateur</option>
+            <option value="Duelliste" {{if eq .Filter "Duelliste"}}selected{{end}}>Duelliste</option>
+            <option value="Sentinelle" {{if eq .Filter "Sentinelle"}}selected{{end}}>Sentinelle</option>
+            <option value="Contrôleur" {{if eq .Filter "Contrôleur"}}selected{{end}}>Contrôleur</option>
+        </select>
+    </div>
+
+    {{range $group := .Agents}}
     <div class="row">
         {{range $agent := $group}}
         <a href="/agent?name={{$agent.DisplayName}}" class="square-link">
@@ -41,6 +48,13 @@
     </div>
     {{end}}
 </div>
+
+<script>
+    document.getElementById('filter').addEventListener('change', function() {
+        window.location.href = '/agents?filter=' + this.value;
+    });
+</script>
+
 </body>
 </html>
 {{end}}

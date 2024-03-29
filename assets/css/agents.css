@@ -35,8 +35,32 @@
 }
 
 .square-link:last-child {
-    margin-right: 0; /* Pour supprimer l'espacement à droite du dernier élément de chaque ligne */
+    margin-right: 0;
 }
+
+.filters {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.filters label {
+    font-weight: bold;
+}
+
+.filters select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.filters option[selected] {
+    font-weight: bold;
+    color: #333;
+}
+
 
 body {
     background-color: #ffeef2;;

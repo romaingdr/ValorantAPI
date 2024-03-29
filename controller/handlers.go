@@ -5,6 +5,7 @@ import (
 	"ValorantAPI/templates"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 func AccueilPage(w http.ResponseWriter, r *http.Request) {
@@ -12,19 +13,43 @@ func AccueilPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func AgentsPage(w http.ResponseWriter, r *http.Request) {
+	filter := r.URL.Query().Get("filter")
 
 	var agents = backend.GetAgents()
 
-	var groupedAgents [][]backend.Character
-	for i := 0; i < len(agents.Data); i += 4 {
-		end := i + 4
-		if end > len(agents.Data) {
-			end = len(agents.Data)
+	fmt.Println(filter)
+
+	var filteredAgents [][]backend.Character
+
+	var filtered []backend.Character
+	if filter == "all" {
+		filtered = agents.Data
+	} else {
+		for _, agent := range agents.Data {
+			if agent.Role.DisplayName == filter {
+				filtered = append(filtered, agent)
+			}
 		}
-		groupedAgents = append(groupedAgents, agents.Data[i:end])
 	}
 
-	templates.Temp.ExecuteTemplate(w, "agents", groupedAgents)
+	var currentGroup []backend.Character
+	for _, agent := range filtered {
+		currentGroup = append(currentGroup, agent)
+		if len(currentGroup) == 4 {
+			filteredAgents = append(filteredAgents, currentGroup)
+			currentGroup = nil
+		}
+	}
+	if len(currentGroup) > 0 {
+		filteredAgents = append(filteredAgents, currentGroup)
+	}
+
+	type allAgents struct {
+		Agents [][]backend.Character
+		Filter string
+	}
+
+	templates.Temp.ExecuteTemplate(w, "agents", allAgents{filteredAgents, filter})
 }
 
 func AgentPage(w http.ResponseWriter, r *http.Request) {
@@ -167,4 +192,50 @@ func FavoritesPage(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(data)
 	templates.Temp.ExecuteTemplate(w, "favorites", data)
+}
+
+func SearchPage(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	query := r.FormValue("query")
+
+	agents := backend.GetAgents()
+	maps := backend.GetMaps()
+	weapons := backend.GetWeapons()
+
+	var filteredAgents []backend.Character
+	var filteredMaps []backend.Map
+	var filteredWeapons []backend.Item
+
+	// Filtrer les agents
+	for _, agent := range agents.Data {
+		if strings.Contains(strings.ToLower(agent.DisplayName), strings.ToLower(query)) {
+			filteredAgents = append(filteredAgents, agent)
+		}
+	}
+
+	// Filtrer les cartes
+	for _, m := range maps.Data {
+		if strings.Contains(strings.ToLower(m.DisplayName), strings.ToLower(query)) {
+			filteredMaps = append(filteredMaps, m)
+		}
+	}
+
+	// Filtrer les armes
+	for _, weapon := range weapons.Data {
+		if strings.Contains(strings.ToLower(weapon.DisplayName), strings.ToLower(query)) {
+			filteredWeapons = append(filteredWeapons, weapon)
+		}
+	}
+
+	searchResults := struct {
+		Agents  []backend.Character
+		Maps    []backend.Map
+		Weapons []backend.Item
+	}{
+		Agents:  filteredAgents,
+		Maps:    filteredMaps,
+		Weapons: filteredWeapons,
+	}
+
+	templates.Temp.ExecuteTemplate(w, "search", searchResults)
 }

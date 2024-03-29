@@ -37,6 +37,9 @@ func Initserv() {
 	http.HandleFunc("/addfav", controller.AddFavPage)
 	http.HandleFunc("/favorites", controller.FavoritesPage)
 
+	// Recherche
+	http.HandleFunc("/search", controller.SearchPage)
+
 	// Erreur 404
 	http.HandleFunc("/", controller.ErrorPage)
 

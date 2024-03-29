@@ -1,0 +1,82 @@
+{{define "search"}}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favoris</title>
+    <link rel="stylesheet" href="/static/css/search.css">
+</head>
+<body>
+
+<div class="header">
+
+    <div class="inner-header flex">
+        <h1>Valorant API</h1>
+        <form action="/search" method="post" class="search-form">
+            <input type="text" name="query" placeholder="Rechercher sur le site..." class="search-input">
+        </form>
+    </div>
+
+    <div>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#ffeef2" />
+            </g>
+        </svg>
+    </div>
+
+</div>
+
+<h3>Résultat de la recherche</h3>
+
+<h2>Agents</h2>
+<div class="favorites-container">
+    {{if .Agents}}
+    {{range .Agents}}
+    <a href="/agent?name={{.DisplayName}}" class="square-link">
+        <span class="text">{{.DisplayName}}</span>
+        <img src="{{.DisplayIcon}}" alt="Image de l'agent">
+    </a>
+    {{end}}
+    {{else}}
+    <p>Aucun agent ne correspond à la recherche</p>
+    {{end}}
+</div>
+
+<h2>Maps</h2>
+<div class="favorites-container">
+    {{if .Maps}}
+    {{range .Maps}}
+    <a href="/map?id={{.UUID}}" class="square-link">
+        <span class="text">{{.DisplayName}}</span>
+        <img id="img-map" src="https://media.valorant-api.com/maps/{{.UUID}}/splash.png" alt="Map Image">
+    </a>
+    {{end}}
+    {{else}}
+    <p>Aucune carte ne correspond à la recherche</p>
+    {{end}}
+</div>
+
+<h2>Armes</h2>
+<div class="favorites-container">
+    {{if .Weapons}}
+    {{range .Weapons}}
+    <a href="/weapon?name={{.DisplayName}}" class="square-link">
+        <span class="text">{{.DisplayName}}</span>
+        <img id="img-weapon" src="{{.DisplayIcon}}" alt="Weapon Image">
+    </a>
+    {{end}}
+    {{else}}
+    <p>Aucune arme ne correspond à la recherche</p>
+    {{end}}
+</div>
+
+</body>
+</html>
+{{end}}

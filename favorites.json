@@ -5,5 +5,10 @@
             "imageUrl": "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png"
         }
     ],
-    "map": []
+    "map": [
+        {
+            "nom": "Ascent",
+            "id": "7eaecc1b-4337-bbf6-6ab9-04b8f06b3319"
+        }
+    ]
 }
