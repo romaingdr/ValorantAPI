@@ -1,3 +1,2 @@
-- Pagination skins
 - Enlever favoris
 - Relier page

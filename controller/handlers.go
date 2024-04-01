@@ -5,6 +5,7 @@ import (
 	"ValorantAPI/templates"
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -112,19 +113,74 @@ func WeaponsPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func WeaponPage(w http.ResponseWriter, r *http.Request) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from panic:", r)
+			http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+		}
+	}()
+
 	name := r.URL.Query().Get("name")
+
+	pageStr := r.URL.Query().Get("page")
+
+	page := 1
+	if pageStr != "" {
+		pageInt, err := strconv.Atoi(pageStr)
+		if err == nil && pageInt > 0 {
+			page = pageInt
+		}
+	}
 
 	var weapons = backend.GetWeapons()
 
-	var weaponSelected []backend.Item
+	var weaponSelected backend.Item
+
+	var weaponFound bool
 	for _, weapon := range weapons.Data {
 		if weapon.DisplayName == name {
-			weaponSelected = append(weaponSelected, weapon)
+			weaponSelected = weapon
+			weaponFound = true
 			break
 		}
 	}
 
-	templates.Temp.ExecuteTemplate(w, "weapon", weaponSelected[0])
+	if !weaponFound {
+		fmt.Println("Arme non trouvée")
+		http.Error(w, "Arme non trouvée", http.StatusNotFound)
+		return
+	}
+
+	skinsPerPage := 5
+
+	totalSkins := len(weaponSelected.Skins)
+	totalPages := totalSkins / skinsPerPage
+	if totalSkins%skinsPerPage != 0 {
+		totalPages++
+	}
+
+	if totalPages < page {
+		page = 1
+	}
+
+	start := (page - 1) * skinsPerPage
+	end := min(start+skinsPerPage, len(weaponSelected.Skins))
+	paginatedSkins := weaponSelected.Skins[start:end]
+
+	type FullData struct {
+		Weapon     backend.Item
+		Skins      []backend.Skin
+		Page       int
+		TotalPages int
+	}
+
+	data := FullData{
+		Weapon:     weaponSelected,
+		Skins:      paginatedSkins,
+		Page:       page,
+		TotalPages: totalPages,
+	}
+	templates.Temp.ExecuteTemplate(w, "weapon", data)
 }
 
 func GamemodsPage(w http.ResponseWriter, r *http.Request) {

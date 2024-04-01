@@ -256,9 +256,3 @@ h2 {
     border: 2px solid #ccc;
     border-radius: 10px;
 }
-
-
-.search-input:focus {
-    outline: none;
-    border-color: #007bff;
-}

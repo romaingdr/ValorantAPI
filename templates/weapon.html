@@ -31,16 +31,16 @@
 
 <div class="container">
     <div class="image">
-        <img src="{{.DisplayIcon}}" alt="{{.DisplayName}}">
+        <img src="{{.Weapon.DisplayIcon}}" alt="{{.Weapon.DisplayName}}">
     </div>
     <div class="text">
-        <h1>{{.DisplayName}}</h1>
-        <p>Prix : {{.ShopData.Cost}}</p>
-        <p>Cadence de tir : {{.WeaponStats.FireRate}}</p>
-        <p>Temps de rechargement : {{.WeaponStats.ReloadTimeSeconds}}</p>
-        <p>Capacité du chargeur : {{.WeaponStats.MagazineSize}}</p>
+        <h1>{{.Weapon.DisplayName}}</h1>
+        <p>Prix : {{.Weapon.ShopData.Cost}}</p>
+        <p>Cadence de tir : {{.Weapon.WeaponStats.FireRate}}</p>
+        <p>Temps de rechargement : {{.Weapon.WeaponStats.ReloadTimeSeconds}}</p>
+        <p>Capacité du chargeur : {{.Weapon.WeaponStats.MagazineSize}}</p>
         <div class="damages">
-            {{range .WeaponStats.DamageRanges}}
+            {{range .Weapon.WeaponStats.DamageRanges}}
             <p>Portée : {{.RangeStartMeters }} - {{.RangeEndMeters }}</p>
             <p>Dégats à la tête : {{.HeadDamage}}</p>
             <p>Dégats au corps : {{.BodyDamage}}</p>
@@ -59,6 +59,18 @@
         <p>{{.DisplayName}}</p>
     </a>
 {{end}}
+</div>
+
+<div class="pagination">
+    {{if gt .Page 1}}
+    <a href="/weapon?name={{.Weapon.DisplayName}}&page={{sub .Page 1}}">Page précédente</a>
+    {{end}}
+
+    <span>{{.Page}}/{{.TotalPages}}</span>
+
+    {{if lt .Page .TotalPages}}
+    <a href="/weapon?name={{.Weapon.DisplayName}}&page={{add .Page 1}}">Page suivante</a>
+    {{end}}
 </div>
 </body>
 </html>
