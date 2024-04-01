@@ -7,9 +7,9 @@
     box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     font-family: ValoFont, sans-serif;
     margin-top: 10px;
-    display: inline-flex; /* Utilisation de flexbox */
-    flex-direction: column; /* Empiler les éléments les uns sur les autres */
-    align-items: center; /* Centrer les éléments horizontalement */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
     width: 250px;
     height: 250px;
     background-color: white;
@@ -22,20 +22,20 @@
 }
 
 .square-link .text {
-    line-height: 50px; /* Hauteur de ligne égale à la hauteur du carré pour centrer le texte verticalement */
+    line-height: 50px;
 }
 
 .square-link svg {
-    margin-top: 20px; /* Espacement entre le texte et le SVG */
+    margin-top: 20px;
 }
 
 .square-link img {
     width: 70%;
-    margin-top: 20px; /* Espacement entre le texte et le SVG */
+    margin-top: 20px;
 }
 
 .square-link:last-child {
-    margin-right: 0; /* Pour supprimer l'espacement à droite du dernier élément de chaque ligne */
+    margin-right: 0;
 }
 
 body {
@@ -114,7 +114,7 @@ p {
 .row {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px; /* Espacement entre les rangées */
+    margin-bottom: 20px;
 }
 
 .parallax > use {
@@ -178,27 +178,27 @@ p {
 }
 
 .ability {
-    margin-bottom: 10px; /* Espacement entre chaque compétence */
-    background-color: #f8d7da; /* Couleur de fond rouge clair */
-    background-image: linear-gradient(to bottom right, #f8d7da, #e69c9b); /* Dégradé rouge clair */
-    padding: 10px; /* Espacement interne pour l'arrière-plan */
-    border-radius: 5px; /* Ajoute des coins arrondis */
+    margin-bottom: 10px;
+    background-color: #f8d7da;
+    background-image: linear-gradient(to bottom right, #f8d7da, #e69c9b);
+    padding: 10px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
 }
 
 .icon {
-    margin-left: 10px; /* Espacement entre l'icône et le texte */
-    width: 50px; /* Largeur de l'icône */
-    height: 50px; /* Hauteur de l'icône */
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
 }
 
 .ability-details {
-    flex: 1; /* Le texte prend tout l'espace disponible */
-    margin-left: 10px; /* Espacement entre l'icône et le texte */
+    flex: 1;
+    margin-left: 10px;
 }
 
 .ability-name {
-    font-weight: bold; /* Titre de la compétence */
-    margin-bottom: 5px; /* Espacement entre le titre et la description */
+    font-weight: bold;
+    margin-bottom: 5px;
 }

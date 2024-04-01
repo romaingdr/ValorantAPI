@@ -297,21 +297,18 @@ func SearchPage(w http.ResponseWriter, r *http.Request) {
 	var filteredMaps []backend.Map
 	var filteredWeapons []backend.Item
 
-	// Filtrer les agents
 	for _, agent := range agents.Data {
 		if strings.Contains(strings.ToLower(agent.DisplayName), strings.ToLower(query)) {
 			filteredAgents = append(filteredAgents, agent)
 		}
 	}
 
-	// Filtrer les cartes
 	for _, m := range maps.Data {
 		if strings.Contains(strings.ToLower(m.DisplayName), strings.ToLower(query)) {
 			filteredMaps = append(filteredMaps, m)
 		}
 	}
 
-	// Filtrer les armes
 	for _, weapon := range weapons.Data {
 		if strings.Contains(strings.ToLower(weapon.DisplayName), strings.ToLower(query)) {
 			filteredWeapons = append(filteredWeapons, weapon)

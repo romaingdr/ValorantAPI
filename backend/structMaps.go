@@ -9,7 +9,6 @@ type Callout struct {
 	} `json:"location"`
 }
 
-// Map représente une carte avec ses détails comme le nom, la description narrative, la description tactique, les coordonnées, etc.
 type Map struct {
 	UUID                    string    `json:"uuid"`
 	DisplayName             string    `json:"displayName"`
@@ -31,7 +30,6 @@ type Map struct {
 	Callouts                []Callout `json:"callouts"`
 }
 
-// MapsData représente les données de toutes les cartes.
 type MapsData struct {
 	Status int   `json:"status"`
 	Data   []Map `json:"data"`

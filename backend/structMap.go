@@ -20,7 +20,6 @@ type UniqueCallout struct {
 	Location        UniqueLocation `json:"location"`
 }
 
-// Location représente les coordonnées d'un point sur la carte du jeu Valorant
 type UniqueLocation struct {
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
