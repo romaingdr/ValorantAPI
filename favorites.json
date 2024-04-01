@@ -1,22 +1,14 @@
 {
     "agent": [
         {
-            "nom": "Gekko",
-            "imageUrl": "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png"
-        },
-        {
-            "nom": "Raze",
-            "imageUrl": "https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/displayicon.png"
+            "imageUrl": "https://media.valorant-api.com/agents/22697a3d-45bf-8dd7-4fec-84a9e28c69d7/displayicon.png",
+            "nom": "Chamber"
         }
     ],
     "map": [
         {
-            "nom": "Ascent",
-            "id": "7eaecc1b-4337-bbf6-6ab9-04b8f06b3319"
-        },
-        {
-            "nom": "Bind",
-            "id": "2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba"
+            "id": "2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba",
+            "nom": "Bind"
         }
     ]
 }

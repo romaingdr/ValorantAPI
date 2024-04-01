@@ -35,6 +35,7 @@ func Initserv() {
 
 	// Favoris
 	http.HandleFunc("/addfav", controller.AddFavPage)
+	http.HandleFunc("/delfav", controller.DelFavPage)
 	http.HandleFunc("/favorites", controller.FavoritesPage)
 
 	// Recherche

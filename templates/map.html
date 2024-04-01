@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{.DisplayName}}</title>
+    <title>{{.Map.DisplayName}}</title>
     <link rel="stylesheet" href="/static/css/map.css">
 </head>
 <body>
@@ -31,16 +31,20 @@
 
 <div class="container">
     <div class="image">
-        <img src="{{.DisplayIcon}}" alt="{{.DisplayName}}">
+        <img src="{{.Map.DisplayIcon}}" alt="{{.Map.DisplayName}}">
     </div>
     <div class="text">
         <div class="name">
-            <h1>{{.DisplayName}}</h1>
-            <a href="/addfav?type=map&key={{.DisplayName}}&id={{.UUID}}"><img width="50" height="50" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1"/></a>
+            <h1>{{.Map.DisplayName}}</h1>
+            {{if .IsFavorite}}
+            <a href="/delfav?type=map&key={{.Map.DisplayName}}&id={{.Map.UUID}}"><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/star--v1.png" alt="star--v1"/></a>
+            {{else}}
+            <a href="/addfav?type=map&key={{.Map.DisplayName}}&id={{.Map.UUID}}"><img width="50" height="50" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1"/></a>
+            {{end}}
         </div>
-        <p>{{.NarrativeDescription}}</p>
-        <p><strong>Coordonnées :</strong> {{.Coordinates}}</p>
-        <p><strong>Description Tactique :</strong> {{.TacticalDescription}}</p>
+        <p>{{.Map.NarrativeDescription}}</p>
+        <p><strong>Coordonnées :</strong> {{.Map.Coordinates}}</p>
+        <p><strong>Description Tactique :</strong> {{.Map.TacticalDescription}}</p>
     </div>
 </div>
 
@@ -48,7 +52,7 @@
 
 <div class="spots">
     <ul>
-        {{range .Callouts}}
+        {{range .Map.Callouts}}
         <div class="spot">
             <strong > {{.RegionName}} </strong>({{.SuperRegionName}}) | X : {{.Location.X}}, Y : {{.Location.Y}}
         </div>

@@ -131,6 +131,50 @@ func GetSkin(id string) WeaponSkinData {
 	return apiResponse
 }
 
+func DelFavorite(targetType, targetName string) error {
+	data, err := ioutil.ReadFile("favorites.json")
+	if err != nil {
+		return err
+	}
+
+	var jsonData map[string][]map[string]string
+	err = json.Unmarshal(data, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	switch targetType {
+	case "agent":
+		for i, agent := range jsonData["agent"] {
+			if agent["nom"] == targetName {
+				jsonData["agent"] = append(jsonData["agent"][:i], jsonData["agent"][i+1:]...)
+				break
+			}
+		}
+	case "map":
+		for i, m := range jsonData["map"] {
+			if m["nom"] == targetName {
+				jsonData["map"] = append(jsonData["map"][:i], jsonData["map"][i+1:]...)
+				break
+			}
+		}
+	default:
+		return fmt.Errorf("Type cible non pris en charge: %s", targetType)
+	}
+
+	updatedData, err := json.MarshalIndent(jsonData, "", "    ")
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile("favorites.json", updatedData, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func AjouterElement(t string, nom string, imageURL string) error {
 	var data Data
 	file, err := os.Open("favorites.json")
@@ -194,4 +238,36 @@ func GetFavorites() (Data, error) {
 	}
 
 	return data, nil
+}
+
+func IsFavorite(targetType, targetName string) bool {
+	data, err := ioutil.ReadFile("favorites.json")
+	if err != nil {
+		return false
+	}
+
+	var jsonData map[string][]map[string]string
+	err = json.Unmarshal(data, &jsonData)
+	if err != nil {
+		return false
+	}
+
+	switch targetType {
+	case "agent":
+		for _, agent := range jsonData["agent"] {
+			if agent["nom"] == targetName {
+				return true
+			}
+		}
+	case "map":
+		for _, m := range jsonData["map"] {
+			if m["nom"] == targetName {
+				return true
+			}
+		}
+	default:
+		return false
+	}
+
+	return false
 }

@@ -66,7 +66,18 @@ func AgentPage(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	templates.Temp.ExecuteTemplate(w, "agent", agent[0])
+	type AgentDatas struct {
+		Agent      backend.Character
+		IsFavorite bool
+	}
+
+	var datas AgentDatas
+	datas.Agent = agent[0]
+	datas.IsFavorite = backend.IsFavorite("agent", name)
+
+	fmt.Println(datas)
+
+	templates.Temp.ExecuteTemplate(w, "agent", datas)
 }
 
 func MapsPage(w http.ResponseWriter, r *http.Request) {
@@ -91,9 +102,16 @@ func MapPage(w http.ResponseWriter, r *http.Request) {
 
 	mapDatas := backend.GetMap(id)
 
-	fmt.Println(mapDatas)
+	type MapDatas struct {
+		Map        backend.UniqueMapData
+		IsFavorite bool
+	}
 
-	templates.Temp.ExecuteTemplate(w, "map", mapDatas.Datas)
+	var datas MapDatas
+	datas.Map = mapDatas.Datas
+	datas.IsFavorite = backend.IsFavorite("map", mapDatas.Datas.DisplayName)
+
+	templates.Temp.ExecuteTemplate(w, "map", datas)
 }
 
 func WeaponsPage(w http.ResponseWriter, r *http.Request) {
@@ -234,6 +252,23 @@ func AddFavPage(w http.ResponseWriter, r *http.Request) {
 	if t == "agent" {
 		http.Redirect(w, r, "/agent?name="+name, http.StatusSeeOther)
 	} else if t == "map" {
+		http.Redirect(w, r, "/map?id="+id, http.StatusSeeOther)
+	}
+}
+
+func DelFavPage(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("key")
+	t := r.URL.Query().Get("type")
+
+	err := backend.DelFavorite(t, name)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if t == "agent" {
+		http.Redirect(w, r, "/agent?name="+name, http.StatusSeeOther)
+	} else if t == "map" {
+		id := r.URL.Query().Get("id")
 		http.Redirect(w, r, "/map?id="+id, http.StatusSeeOther)
 	}
 }

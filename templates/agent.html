@@ -32,18 +32,22 @@
 
 <div class="container">
     <div class="image">
-        <img src="{{.FullPortrait}}" alt="{{.DisplayName}}">
+        <img src="{{.Agent.FullPortrait}}" alt="{{.Agent.DisplayName}}">
     </div>
     <div class="text">
         <div class="name">
-            <h1>{{.DisplayName}}</h1>
-            <a href="/addfav?type=agent&key={{.DisplayName}}&img={{.DisplayIcon}}"><img width="50" height="50" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1"/></a>
+            <h1>{{.Agent.DisplayName}}</h1>
+            {{if .IsFavorite}}
+            <a href="/delfav?type=agent&key={{.Agent.DisplayName}}"><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/star--v1.png" alt="star--v1"/></a>
+            {{else}}
+            <a href="/addfav?type=agent&key={{.Agent.DisplayName}}&img={{.Agent.DisplayIcon}}"><img width="50" height="50" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1"/></a>
+            {{end}}
         </div>
-        <p>{{.Description}}</p>
-        <p>Nom de développement : {{.DeveloperName}}</p>
-        <p>Role : {{.Role.DisplayName}}</p>
+        <p>{{.Agent.Description}}</p>
+        <p>Nom de développement : {{.Agent.DeveloperName}}</p>
+        <p>Role : {{.Agent.Role.DisplayName}}</p>
         <p>Abilités :</p>
-        {{range .Abilities}}
+        {{range .Agent.Abilities}}
         <div class="ability">
             <img class="icon" src="{{.DisplayIcon}}" alt="{{.DisplayName}}">
             <div class="ability-details">

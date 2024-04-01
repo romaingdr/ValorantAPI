@@ -1,2 +1,1 @@
-- Enlever favoris
 - Relier page
